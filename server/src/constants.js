@@ -1,3 +1,8 @@
-const DB_NAME="demo";
+const DB_NAME = "demo";
 
-module.exports={DB_NAME};
+const OPTIONS = {
+    httpOnly: true,
+    secure: true
+}
+
+module.exports = { DB_NAME, OPTIONS };
