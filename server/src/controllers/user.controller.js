@@ -2,6 +2,7 @@ const asyncHandler = require("../utils/asyncHandler");
 const User = require('../models/user.model');
 const { OPTIONS } = require("../constants");
 const ApiError = require('../utils/ApiError');
+const jwt=require('jsonwebtoken');
 
 const generateAccessAndRefershToken = async (userID) => {
     const user = await User.findById(userID);
@@ -60,4 +61,19 @@ const currentUser = asyncHandler(async (req, res) => {
     const { user } = req;
     res.status(200).json(user);
 })
-module.exports = { login, register,currentUser };
+
+const refreshAccessToken = asyncHandler(async (req, res) => {
+    const incomingRefreshToken = req.cookies?.refreshToken || req.body.refreshToken;
+    if (!incomingRefreshToken) {
+        throw new ApiError(401, "Unauthorized request");
+    }
+    const decodedToken=await jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN);
+    const user=await User.findById(decodedToken._id);
+    if(!user){
+        throw new ApiError(401,"Invalid User");
+    }
+    const{refreshToken,accessToken}=await generateAccessAndRefershToken(user._id);
+    res.status(200).cookie("accessToken",accessToken).cookie("refreshToken",refreshToken).json({refreshToken,accessToken});
+})
+
+module.exports = { login, register, currentUser, refreshAccessToken };
