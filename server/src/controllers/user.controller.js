@@ -89,6 +89,18 @@ const logoutUser = asyncHandler(async (req, res) => {
         "User loggedOut!"
     )
 
+});
+
+const updatePassword = asyncHandler(async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+    const existingUser = await User.findByIdAndUpdate(req.user['_id']);
+    if (currentPassword != existingUser.password) {
+        throw new ApiError(403, "Current password doensot match!");
+    }
+    user.password = newPassword;
+    user.save({ validateBeforeSave: false });
+    res.status(200).json("Password changed Succesfully!")
+
 })
 
-module.exports = { login, register, getCurrentUser, refreshAccessToken ,logoutUser};
+module.exports = { login, register, getCurrentUser, refreshAccessToken, logoutUser, updatePassword };
