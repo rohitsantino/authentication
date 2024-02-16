@@ -57,7 +57,7 @@ const register = asyncHandler(async (req, res) => {
     res.status(200).cookie("accessToken", accessToken, OPTIONS).cookie("refreshToken", refreshToken, OPTIONS).json(createdUser);
 });
 
-const currentUser = asyncHandler(async (req, res) => {
+const getCurrentUser = asyncHandler(async (req, res) => {
     const { user } = req;
     res.status(200).json(user);
 })
@@ -76,4 +76,4 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     res.status(200).cookie("accessToken",accessToken).cookie("refreshToken",refreshToken).json({refreshToken,accessToken});
 })
 
-module.exports = { login, register, currentUser, refreshAccessToken };
+module.exports = { login, register, getCurrentUser, refreshAccessToken };
