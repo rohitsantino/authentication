@@ -2,7 +2,7 @@ const asyncHandler = require("../utils/asyncHandler");
 const User = require('../models/user.model');
 const { OPTIONS } = require("../constants");
 const ApiError = require('../utils/ApiError');
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const generateAccessAndRefershToken = async (userID) => {
     const user = await User.findById(userID);
@@ -67,13 +67,28 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     if (!incomingRefreshToken) {
         throw new ApiError(401, "Unauthorized request");
     }
-    const decodedToken=await jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN);
-    const user=await User.findById(decodedToken._id);
-    if(!user){
-        throw new ApiError(401,"Invalid User");
+    const decodedToken = await jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN);
+    const user = await User.findById(decodedToken._id);
+    if (!user) {
+        throw new ApiError(401, "Invalid User");
     }
-    const{refreshToken,accessToken}=await generateAccessAndRefershToken(user._id);
-    res.status(200).cookie("accessToken",accessToken).cookie("refreshToken",refreshToken).json({refreshToken,accessToken});
+    const { refreshToken, accessToken } = await generateAccessAndRefershToken(user._id);
+    res.status(200).cookie("accessToken", accessToken).cookie("refreshToken", refreshToken).json({ refreshToken, accessToken });
 })
 
-module.exports = { login, register, getCurrentUser, refreshAccessToken };
+const logoutUser = asyncHandler(async (req, res) => {
+    const user = await User.findByIdAndUpdate(req.user['_id'],
+        {
+            $unset: { refreshToken: 1 }
+        },
+        {
+            new: true
+        }
+    );
+    res.status(200).clearCookie("accessToken", OPTIONS).clearCookie("refreshToken", OPTIONS).json(
+        "User loggedOut!"
+    )
+
+})
+
+module.exports = { login, register, getCurrentUser, refreshAccessToken ,logoutUser};
