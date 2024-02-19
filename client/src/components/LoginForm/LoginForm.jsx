@@ -1,14 +1,45 @@
 import React, { useState } from 'react';
+import { axios } from '@Axios';
+// import axios from 'axios';
 import styles from './LoginForm.module.css';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const postLoginData = async () => {
+        try {
+
+            const res = await axios.post('/api/v1/users/login', { email, password },
+                {
+                    headers: {
+                        'withCredentials': true
+                    }
+                });
+            if (res.status === 200) {
+                console.log(res,"jkl");
+                console.log("hi");
+                // navigate('/user');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Email:', email);
         console.log('Password:', password);
+        postLoginData();
+        Cookies.set('name', 'value')
+        // setEmail("");
+        // setPassword("");
+        // const accessToken = Cookies.get('accessToken');
+        // const refreshToken = Cookies.get('refreshToken');
     };
 
     return (

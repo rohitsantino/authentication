@@ -30,6 +30,7 @@ const login = asyncHandler(async (req, res) => {
     }
     const loggedInUser = await User.findById(existingUser._id).select("-password -refreshToken");
     const { accessToken, refreshToken } = await generateAccessAndRefershToken(existingUser._id);
+    console.log(accessToken,"shjdhfjhsjdf",refreshToken);
     res.status(200).cookie("accessToken", accessToken, OPTIONS).cookie("refreshToken", refreshToken, OPTIONS).json(loggedInUser);
 });
 
@@ -103,4 +104,8 @@ const updatePassword = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { login, register, getCurrentUser, refreshAccessToken, logoutUser, updatePassword };
+const greet=asyncHandler(async(req,res)=>{
+    console.log(req.cookies.accessToken);
+})
+
+module.exports = { login, register, getCurrentUser, refreshAccessToken, logoutUser, updatePassword,greet };

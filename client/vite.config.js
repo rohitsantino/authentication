@@ -9,6 +9,7 @@ export default defineConfig({
       '@components': '/src/components',
       '@pages': '/src/pages',
       '@routes':'/src/routes',
+      '@Axios': '/src/Axios',
     },
   },
   esbuild: {

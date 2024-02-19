@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './RegisterForm.module.css';
+import {axios} from '@Axios';
 
 const RegisterForm = () => {
     const [firstName, setFirstName] = useState('');
@@ -9,10 +10,11 @@ const RegisterForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('First Name:', firstName);
-        console.log('Last Name:', lastName);
-        console.log('Email:', email);
-        console.log('Password:', password);
+        axios.post('/api/v1/users/register',{firstName,lastName,email,password});
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("")
     };
 
     return (
