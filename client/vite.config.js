@@ -11,6 +11,7 @@ export default defineConfig({
       '@routes':'/src/routes',
       '@Axios': '/src/Axios',
       '@context': '/src/context',
+      '@protectedRoute': '/src/protectedRoute'
     },
   },
   esbuild: {
