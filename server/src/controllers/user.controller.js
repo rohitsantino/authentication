@@ -85,9 +85,9 @@ const logoutUser = asyncHandler(async (req, res) => {
         {
             new: true
         }
-    );
+    ).select("-password");
     res.status(200).clearCookie("accessToken", OPTIONS).clearCookie("refreshToken", OPTIONS).json(
-        "User loggedOut!"
+        user
     )
 
 });
@@ -105,7 +105,8 @@ const updatePassword = asyncHandler(async (req, res) => {
 })
 
 const greet=asyncHandler(async(req,res)=>{
-    console.log(req.cookies.accessToken);
+    res.json("Hi");
+    console.log("Hi");
 })
 
 module.exports = { login, register, getCurrentUser, refreshAccessToken, logoutUser, updatePassword,greet };

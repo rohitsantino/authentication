@@ -21,12 +21,10 @@ const LoginForm = () => {
                     }
                 });
             if (res.status === 200) {
-                console.log(res,"jkl");
-                console.log("hi");
-                // navigate('/user');
+                navigate('/user');
             }
         } catch (error) {
-            console.log(error);
+            console.log(error.response?.data?.error?.message);
         }
     }
 

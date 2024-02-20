@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import {axios} from '@Axios';
+import { axios } from '@Axios';
 
-export default function UserDashboard() { 
-    const[user,setUser]=useState({});
-    const getUser=async()=>{
-        try {
-            await axios.get('/api/v1/users/').then((res)=>{
-                setUser(res.data);
-                console.log(res.data);
-            })
-        } catch (error) {
-            
-        }
+export default function UserDashboard() {
+  const [user, setUser] = useState({});
+  const getUser = async () => {
+    try {
+      const res = await axios.get('/api/v1/users/current-user');
+      console.log(res.data);
+      setUser(res.data)
+    } catch (error) {
+
     }
+  }
 
-  useEffect(()=>{
+  useEffect(() => {
     getUser();
-  },[])
+  }, []);
+
+  const handleLogout=()=>{
+    axios.post('/api/v1/users/logout')
+  }
   return (
-    <div>Hello</div>
+    <>
+      <div>{user.firstName}</div>
+      <button onClick={handleLogout}>logout</button>
+    </>
   )
 }
