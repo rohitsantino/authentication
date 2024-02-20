@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { axios } from '@Axios';
 // import axios from 'axios';
 import styles from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { LoginContext } from '@context/IsLoggedinContext';
 
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState("");
+    const [hasError, setHasError] = useState(false);
+    const[isLoggedin, setIsLoggedIn]=useContext(LoginContext)
     const navigate = useNavigate();
 
     const postLoginData = async () => {
         try {
-
+            setHasError(false);
             const res = await axios.post('/api/v1/users/login', { email, password },
                 {
                     headers: {
@@ -21,10 +25,14 @@ const LoginForm = () => {
                     }
                 });
             if (res.status === 200) {
+                console.log(isLoggedin);
+                setIsLoggedIn(true);
                 navigate('/user');
             }
-        } catch (error) {
-            console.log(error.response?.data?.error?.message);
+        } catch (err) {
+            setHasError(true);
+            console.log(err.response?.data?.error?.message);
+            setError(err.response?.data?.error?.message);
         }
     }
 
@@ -32,12 +40,9 @@ const LoginForm = () => {
         e.preventDefault();
         console.log('Email:', email);
         console.log('Password:', password);
+        localStorage.setItem('firstLogin', true);
         postLoginData();
-        Cookies.set('name', 'value')
-        // setEmail("");
-        // setPassword("");
-        // const accessToken = Cookies.get('accessToken');
-        // const refreshToken = Cookies.get('refreshToken');
+
     };
 
     return (
@@ -68,6 +73,7 @@ const LoginForm = () => {
                         className={styles.input}
                     />
                 </div>
+                {hasError ? <div style={{color:'red',paddingBottom:`4px`}}>{error}</div> : null}
                 <button type="submit" className={styles.button}>Login</button>
             </form>
         </div>

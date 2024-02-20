@@ -1,10 +1,25 @@
+import { useContext, useEffect } from 'react';
 import './App.css';
-import RouteHandler from './routes'
+import { axios } from '@Axios';
+import RouteHandler from '@routes';
+import { LoginContext } from '@context/IsLoggedinContext';
 
 function App() {
+  const [isLoggedin, setIsLoggedIn] = useContext(LoginContext);
+  useEffect(() => {
+    console.log(localStorage.getItem('firstLogin'));
+    if (isLoggedin != true) {
+      return;
+    }
+    let timeInterval;
+    timeInterval = setInterval(() => {
+      axios.get('/api/v1/users/refresh-token')
+    }, [25000]);
+    return () => clearInterval(timeInterval);
+  }, [isLoggedin])
   return (
     <>
-     <RouteHandler/>
+      <RouteHandler />
     </>
   )
 }

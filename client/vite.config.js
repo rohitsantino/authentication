@@ -10,6 +10,7 @@ export default defineConfig({
       '@pages': '/src/pages',
       '@routes':'/src/routes',
       '@Axios': '/src/Axios',
+      '@context': '/src/context',
     },
   },
   esbuild: {
