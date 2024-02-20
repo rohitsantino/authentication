@@ -5,9 +5,8 @@ import RouteHandler from '@routes';
 import { LoginContext } from '@context/IsLoggedinContext';
 
 function App() {
-  const [isLoggedin, setIsLoggedIn] = useContext(LoginContext);
+  const [isLoggedin] = useContext(LoginContext);
   useEffect(() => {
-    console.log(localStorage.getItem('firstLogin'));
     if (isLoggedin != true) {
       return;
     }

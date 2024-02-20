@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { axios } from '@Axios';
-// import axios from 'axios';
 import styles from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { LoginContext } from '@context/IsLoggedinContext';
 
 
