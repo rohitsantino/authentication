@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
-import {axios} from '@Axios';
+import React, { useContext, useState } from 'react';
+import { axios } from '@Axios';
 import styles from './PasswordChangeForm.module.css';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PasswordChangeForm = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const navigate=useNavigate();
+    const [hasError, setHasError] = useState(false);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('/api/v1/users/update-password',{currentPassword,newPassword}).then(()=>navigate('/'))
+        axios.post('/api/v1/users/update-password', { currentPassword, newPassword }).then(
+            () => navigate('/')
+        ).catch(
+            (err) => {
+                setHasError(true);
+                setError(err.response?.data?.error?.message);
+            }
+        )
     };
 
     return (
@@ -42,6 +51,7 @@ const PasswordChangeForm = () => {
                             className={styles.input}
                         />
                     </div>
+                    {hasError ? <div style={{ color: 'red', paddingBottom: `4px` }}>{error}</div> : null}
                     <button type="submit" className={styles.button}>Login</button>
                 </form>
             </div>
