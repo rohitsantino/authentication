@@ -4,11 +4,8 @@ import { Register } from '@pages/Register';
 import { ChangePassword } from '@pages/ChangePassword';
 import { UserDashboard } from '@pages/UserDashboard';
 import { ProtectedRoute } from '@protectedRoute';
-import { useContext } from 'react';
-import { LoginContext } from '@context/IsLoggedinContext';
 
 export default function RouteHandler() {
-    const [isLoggedin] = useContext(LoginContext);
     return (
         <BrowserRouter>
             <Routes>
