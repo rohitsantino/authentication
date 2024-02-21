@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './RegisterForm.module.css';
 import {axios} from '@Axios';
+import { Link } from 'react-router-dom';
 
 const RegisterForm = () => {
     const [firstName, setFirstName] = useState('');
@@ -70,6 +71,9 @@ const RegisterForm = () => {
                     />
                 </div>
                 <button type="submit" className={styles.button}>Register</button>
+                <div className="login" style={{marginTop:`4px`}}>
+                    <Link to='/'>Already have an account?</Link>
+                </div>
             </form>
         </div>
     );

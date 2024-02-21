@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { axios } from '@Axios';
 import styles from './LoginForm.module.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LoginContext } from '@context/IsLoggedinContext';
 
 
@@ -73,6 +73,9 @@ const LoginForm = () => {
                 </div>
                 {hasError ? <div style={{color:'red',paddingBottom:`4px`}}>{error}</div> : null}
                 <button type="submit" className={styles.button}>Login</button>
+                <div className="signup" style={{marginTop:`4px`}}>
+                    <Link to='/register'>Don't have an account?Sign Up</Link>
+                </div>
             </form>
         </div>
     );
