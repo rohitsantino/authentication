@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './RegisterForm.module.css';
 import { axios } from '@Axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const RegisterForm = () => {
     const [firstName, setFirstName] = useState('');
@@ -16,6 +17,7 @@ const RegisterForm = () => {
         setLastName("");
         setEmail("");
         setPassword("")
+        toast("Successfully Registered!")
     };
 
     return (

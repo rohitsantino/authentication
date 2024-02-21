@@ -3,6 +3,7 @@ import { axios } from '@Axios';
 import styles from './LoginForm.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { LoginContext } from '@context/IsLoggedinContext';
+import { toast } from 'react-toastify';
 
 
 const LoginForm = () => {
@@ -25,6 +26,7 @@ const LoginForm = () => {
             if (res.status === 200) {
                 console.log(isLoggedin);
                 setIsLoggedIn(true);
+                toast.success("Login successfull!");
                 navigate('/user');
             }
         } catch (err) {

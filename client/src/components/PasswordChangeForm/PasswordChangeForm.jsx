@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { axios } from '@Axios';
 import styles from './PasswordChangeForm.module.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const PasswordChangeForm = () => {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -12,6 +13,7 @@ const PasswordChangeForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        toast("Password Changed");
         axios.post('/api/v1/users/update-password', { currentPassword, newPassword }).then(
             () => navigate('/')
         ).catch(

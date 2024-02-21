@@ -3,6 +3,8 @@ import './App.css';
 import { axios } from '@Axios';
 import RouteHandler from '@routes';
 import { LoginContext } from '@context/IsLoggedinContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isLoggedin] = useContext(LoginContext);
@@ -19,6 +21,7 @@ function App() {
   return (
     <>
       <RouteHandler />
+      <ToastContainer />
     </>
   )
 }
