@@ -94,12 +94,16 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const updatePassword = asyncHandler(async (req, res) => {
     const { currentPassword, newPassword } = req.body;
+    console.log(req.user,"dsfhsf",typeof(currentPassword),newPassword);
     const existingUser = await User.findByIdAndUpdate(req.user['_id']);
-    if (currentPassword != existingUser.password) {
+    console.log(existingUser);
+    const isPasswordValid=await existingUser.isPasswordCorrect(currentPassword);
+    console.log(isPasswordValid);
+    if (!isPasswordValid) {
         throw new ApiError(403, "Current password doensot match!");
     }
-    user.password = newPassword;
-    user.save({ validateBeforeSave: false });
+    existingUser.password = newPassword;
+    await existingUser.save({ validateBeforeSave: false });
     res.status(200).json("Password changed Succesfully!")
 
 })
