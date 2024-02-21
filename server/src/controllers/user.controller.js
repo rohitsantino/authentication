@@ -108,9 +108,6 @@ const updatePassword = asyncHandler(async (req, res) => {
 
 })
 
-const greet=asyncHandler(async(req,res)=>{
-    res.json("Hi");
-    console.log("Hi");
-})
 
-module.exports = { login, register, getCurrentUser, refreshAccessToken, logoutUser, updatePassword,greet };
+
+module.exports = { login, register, getCurrentUser, refreshAccessToken, logoutUser, updatePassword };
