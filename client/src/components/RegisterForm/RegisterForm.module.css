@@ -1,4 +1,9 @@
-/* RegisterForm.module.css */
+.register{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 96vh;
+}
 
 .container {
   width: 300px;
@@ -19,16 +24,16 @@
 
 .label {
   font-weight: bold;
-  width: 100px; /* Fixed width for labels */
-  display: inline-block; /* Align labels and inputs */
+  width: 100px; 
+  display: inline-block;
 }
 
 .input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  width: calc(100% - 110px); /* Calculate input width to align with labels */
-  margin-left: 10px; /* Add margin for better separation */
+  width: calc(100% - 110px); 
+  margin-left: 10px; 
 }
 
 .button {
@@ -38,7 +43,7 @@
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  width: 100%; /* Make button width same as inputs */
+  width: 100%; 
 }
 
 .button:hover {

@@ -10,7 +10,7 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState("");
     const [hasError, setHasError] = useState(false);
-    const[isLoggedin, setIsLoggedIn]=useContext(LoginContext)
+    const [isLoggedin, setIsLoggedIn] = useContext(LoginContext)
     const navigate = useNavigate();
 
     const postLoginData = async () => {
@@ -44,39 +44,41 @@ const LoginForm = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
-                    <div className="label">
-                        <label htmlFor="email">Email:</label>
+        <div className={styles.login}>
+            <div className={styles.container}>
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.formGroup}>
+                        <div className="label">
+                            <label htmlFor="email">Email:</label>
+                        </div>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className={styles.input}
+                        />
                     </div>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <div className="label">
-                        <label htmlFor="password">Password:</label>
+                    <div className={styles.formGroup}>
+                        <div className="label">
+                            <label htmlFor="password">Password:</label>
+                        </div>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className={styles.input}
+                        />
                     </div>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={styles.input}
-                    />
-                </div>
-                {hasError ? <div style={{color:'red',paddingBottom:`4px`}}>{error}</div> : null}
-                <button type="submit" className={styles.button}>Login</button>
-                <div className="signup" style={{marginTop:`4px`}}>
-                    <Link to='/register'>Don't have an account?Sign Up</Link>
-                </div>
-            </form>
+                    {hasError ? <div style={{ color: 'red', paddingBottom: `4px` }}>{error}</div> : null}
+                    <button type="submit" className={styles.button}>Login</button>
+                    <div className="signup" style={{ marginTop: `4px` }}>
+                        <Link to='/register'>Don't have an account?Sign Up</Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

@@ -6,7 +6,7 @@ import styles from './Navigation.module.css';
 
 const Navigation = () => {
   const [user, setUser] = useState({});
-  const [setIsLoggedin] = useContext(LoginContext);
+  const [isLoggedin,setIsLoggedin] = useContext(LoginContext);
   const navigate = useNavigate();
 
   const getUser = async () => {
